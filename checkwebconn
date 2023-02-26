@@ -1,0 +1,14 @@
+import requests
+
+def check_connection(name, url):
+    try:
+        response = requests.get(url)
+        location = response.headers.get("location")
+        if location is None or location.startswith(url):
+            print(f"{name} is online!")
+        else:
+            print(f"{name} is online! But redirects to {location}")
+        return True
+    except requests.exceptions.RequestException:
+        print(f"Failed to establish a connection with {url}")
+        return False
